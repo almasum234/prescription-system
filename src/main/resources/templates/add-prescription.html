@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add prescription</title>
+    <div th:replace="header :: header-css"/>
+</head>
+<body>
+<div th:replace="header :: header-navbar"/>
+<div class="container my-5">
+    <h4>Add prescription</h4>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" method="post"
+                      th:action="@{/prescription/save}" th:object="${prescriptionForm}">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="prescriptionDate">Prescription Date</label>
+                            <div class="input-group date">
+                                <input autocomplete="off" class="form-control" id="prescriptionDate" th:field="*{prescriptionDate}"
+                                       type="text"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                            <span class="text-danger" th:errors="*{prescriptionDate}"
+                                  th:if="${#fields.hasErrors('prescriptionDate')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="patientName">Patient Name</label>
+                            <input class="form-control" id="patientName" placeholder="Name" th:field="*{patientName}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{patientName}"
+                                  th:if="${#fields.hasErrors('patientName')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="patientAge">Patient Age</label>
+                            <div class="col">
+                            <input class="form-control" id="patientAgeYear" placeholder="Year" th:field="*{patientAgeYear}"
+                                   type="number" min="0" max="150">
+                            </div>
+                            <div class="col">
+                            <input class="form-control" id="patientAgeMonth" placeholder="Month" th:field="*{patientAgeMonth}"
+                                   type="number" min="0" max="12">
+                            </div>
+                            <span class="text-danger" th:errors="*{patientAgeYear}"
+                                  th:if="${#fields.hasErrors('patientAgeYear')}"></span>
+                            <span class="text-danger" th:errors="*{patientAgeMonth}"
+                                  th:if="${#fields.hasErrors('patientAgeMonth')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="patientGender">Patient Gender</label>
+                            <select th:field="*{patientGender}">
+                                <option value="">---</option>
+                                <option th:each="gender : ${T(com.prescription.utils.enums.Gender).values()}"
+                                        th:value="${gender.code}" th:text="${gender.text}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{patientGender}"
+                                  th:if="${#fields.hasErrors('patientGender')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="diagnosis">Diagnosis</label>
+                            <textarea class="form-control" cols="25" id="diagnosis" rows="5"
+                                      th:field="*{diagnosis}"></textarea>
+                            <span class="text-danger" th:errors="*{diagnosis}"
+                                  th:if="${#fields.hasErrors('diagnosis')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label class="col-form-label" for="medicines">Medicines</label>
+                            <textarea class="form-control" cols="25" id="medicines" rows="5"
+                                      th:field="*{medicines}"></textarea>
+                            <span class="text-danger" th:errors="*{medicines}"
+                                  th:if="${#fields.hasErrors('medicines')}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="nextVisitDate">Next Visit Date</label>
+                            <div class="input-group date">
+                                <input autocomplete="off" class="form-control" id="nextVisitDate" th:field="*{nextVisitDate}"
+                                       type="text"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                            <span class="text-danger" th:errors="*{nextVisitDate}"
+                                  th:if="${#fields.hasErrors('nextVisitDate')}"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input class="btn btn-primary" type="submit" value="Save">
+                            <a class="btn btn-info" href="/prescription/list" role="button">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+
+</script>
+</body>
+</html>

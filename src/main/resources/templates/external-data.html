@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prescription Report</title>
+    <div th:replace="header :: header-css"/>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg  navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Prescription System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/prescription/view-report">Report</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/consume/external">External Data
+                        <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h3>External Data</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tr>
+                            <td><b>nlmDisclaimer</b></td>
+                            <td><span th:text="${responseApiData.nlmDisclaimer}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>userInput</b></td>
+                            <td><b>sources:</b> <span th:text="${responseApiData?.userInput?.sources}"></span>
+                                <br/><b>rxcui:</b> <span th:text="${responseApiData?.userInput?.rxcui}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><b>interactionTypeGroup</td>
+                            <td>
+                                <table th:each="interactionTypeGroupElement : ${responseApiData?.interactionTypeGroup}">
+                                    <tr><td><b>sourceDisclaimer:</b> <span th:text="${interactionTypeGroupElement.sourceDisclaimer}"></span></td></tr>
+                                    <tr><td><b>sourceName:</b> <span th:text="${interactionTypeGroupElement.sourceName}"></span></td></tr>
+                                    <tr><td><b>interactionType:</b>
+                                        <table th:each="interactionTypeElement : ${interactionTypeGroupElement?.interactionType}">
+                                            <tr><td><b>sourceDisclaimer:</b> <span th:text="${interactionTypeElement.comment}"></span></td></tr>
+                                            <tr><td><b>minConceptItem:</b>
+                                                <table>
+                                                    <tr><td><b>rxcui:</b> <span th:text="${interactionTypeElement.minConceptItem?.rxcui}"></span>
+                                                    <br/><b>name:</b> <span th:text="${interactionTypeElement.minConceptItem?.name}"></span>
+                                                        <br/>tty:</b> <span th:text="${interactionTypeElement.minConceptItem?.tty}"></span></td></tr>
+                                                </table>
+                                            </td></tr>
+                                            <tr><td><b>interactionPair:</b>
+                                                <table th:each="interactionPairElement : ${interactionTypeElement?.interactionPair}">
+                                                    <tr><td><b>interactionConcept:</b>
+                                                        <table th:each="interactionConceptElement : ${interactionPairElement?.interactionConcept}">
+                                                            <tr><td><b>minConceptItem:</b>
+                                                                <table>
+                                                                    <tr><td><b>rxcui:</b> <span th:text="${interactionConceptElement?.minConceptItem?.rxcui}"></span>
+                                                                    <br/><b>name:</b> <span th:text="${interactionConceptElement?.minConceptItem?.name}"></span>
+                                                                    <br/><b>tty:</b> <span th:text="${interactionConceptElement?.minConceptItem?.tty}"></span></td></tr>
+                                                                </table>
+                                                            </td></tr>
+                                                            <tr><td><b>sourceConceptItem:</b>
+                                                                <table>
+                                                                    <tr><td><b>id:</b> <span th:text="${interactionConceptElement.sourceConceptItem?.id}"></span>
+                                                                    <br/><b>name:</b> <span th:text="${interactionConceptElement.sourceConceptItem?.name}"></span>
+                                                                    <br/><b>url:</b> <span th:text="${interactionConceptElement.sourceConceptItem?.url}"></span></td></tr>
+                                                                </table>
+                                                            </td></tr>
+                                                        </table>
+                                                    </td></tr>
+                                                    <tr><td><b>severity:</b> <span th:text="${interactionPairElement?.severity}"></span></td></tr>
+                                                    <tr><td><b>description:</b> <span th:text="${interactionPairElement?.description}"></span></td></tr>
+                                                </table>
+                                            </td></tr>
+                                        </table>
+                                    </td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+</body>
+</html>
