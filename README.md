@@ -1,4 +1,4 @@
-## -------------- APPLICATION FOR PRESCRIPTION GENERATION --------------  ## 
+## APPLICATION FOR PRESCRIPTION GENERATION ## 
 ## User Requirements Mini-Specification  
 You will be creating a simple Web-based application for prescription generation  
 
