@@ -14,12 +14,7 @@ You will be creating a simple Web-based application for prescription generation
 * Create a REST API to get  prescription list (GET /api/v1/prescription) which will return JSON 
 * Consume this REST API, show it in tabular format in a page: https://rxnav.nlm.nih.gov/REST/interaction/interaction.json*rxcui=341248 
 
-## Bonus points: 
-* Ask for confirmation before deleting any prescription entry 
-* Make the UI responsive and beautiful. You can use any UI framework if needed. 
-* Make form validation in client side too using Javascript 
-
-## -------------- DEVELOPMENT README --------------  ## 
+## DEVELOPMENT README ## 
 Technology used:
 • Frontend: Thymeleaf, Bootstrap
 • Backend: Java EE (spring boot version 2.1.7)
@@ -33,6 +28,9 @@ Requirements:
 Database Setup:
 • Please create a database as ‘spring_db’ and update the database username and password in 'application.properties' file before run the application.
 • No need to run any database DDL script for this application.
+
 • Run the following Query insert script for create user before login to the system [Here system username/password: user/1234]
+
 INSERT INTO `spring_db`.`user` (`id`, `active`, `password`, `roles`, `user_name`) VALUES ('1', 1, '1234', 'ROLE_USER', 'user');
+
 • Please use login url : http://localhost:8080/
